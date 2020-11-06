@@ -1,0 +1,47 @@
+{% extends 'index.html' %} {% block content %} {% load static %}
+<div class="content">
+	
+	<header>
+		<a href="home"><img class="header-back" src="{% static 'tweets/images/back.svg' %}"></a>
+		<h1>
+		{% if parent_tweet_id is None %}Post Tweet{% else %}Post Reply{% endif %}</h1>
+	</header>
+
+	<main>
+
+	<!-- Post Tweet Form -->
+	<div class="tweet-form">
+
+		<div class="tweet-form-icon">
+			<img src="{% static 'tweets/images/post-default-icon.svg' %}">
+		</div>
+
+		<div class="tweet-form-content">
+			<form action="{% url 'process_form' %}" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+				<button type="submit" class="header-button">{% if parent_tweet_id is None %}Tweet{% else %}Reply{% endif %}</button>	
+				
+				{% if parent_tweet_id is None %}
+
+				<input type="hidden" name="formtype" value="create"/>	
+				<input type="hidden" name="parent_tweet_id" value=""/>
+
+				{% else %}	
+				<input type="hidden" name="formtype" value="reply"/>
+				<input type="hidden" name="parent_tweet_id" value="{{parent_tweet_id}}"/>
+				{% endif %}
+
+				<input class="tweet-name" type="text" placeholder="Your post name" name="name">
+				
+				<textarea class="tweet-textarea" name="text" placeholder="What’s happenning?" rows="7" cols="100"></textarea>
+
+				<img class="tweet-form-image" src="{% static 'tweets/images/image.svg' %}">
+				<input type="file" id="tweet-image" name="tweet-image" />
+			</form>	
+		</div>
+	</div>
+
+	</main>
+
+</div>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'index.html'%} {% block content %} {% load static %}
+<div class="content">
+  <header>
+    <img class="header-icon" src="{% static 'tweets/images/post-default-icon.svg' %}">
+    <h1>Tweet</h1>
+  </header>
+  <main>
+      <!-- Sample Tweet 1 -->
+    <h1></h1>
+    {% for tweet in val%}{% if tweet.parent_tweet_id == None %}
+    <div class="tweet">
+      <div class="tweet-icon">
+        <a href="detail?id={{tweet.id}}"><img src="{% static 'tweets/images/post-default-icon.svg' %}"></a>
+      </div>
+      <div class="tweet-content">
+          <div class="tweet-name-area">
+              <span class="tweet-name">{{tweet.name}}</span>
+              <span class="tweet-created-at">{{tweet.created_at}}</span>
+          </div>
+          <p>
+            {{tweet.text}}
+          </p>
+          {% if tweet.image_path is not None%}
+          <a href="{% static tweet.image_path %}"><img class="tweet-image" src="{% static tweet.image_path %}"/></a>
+          {% endif %}
+
+          <div class="tweet-buttons">
+            <div class="tweet-reply-count"></div>
+            <a href="posttweet?parent_tweet_id={{tweet.id}}"><img class="tweet-like" src="{% static 'tweets/images/comment.svg' %}"></a>
+            <div class="tweet-like-count">22</div>
+            <img class="tweet-like" src="{% static 'tweets/images/heart.svg' %}">
+            <div class="tweet-like-count">22</div>
+          </div>
+      </div>
+    </div>
+    {% endif%}{% endfor %}
+  </main>
+    <div class="post-tweet-button">
+        <a href="posttweet"><img src="{% static 'tweets/images/post-tweet.svg' %}"></a>
+    </div>
+</div>
+{% endblock %}
