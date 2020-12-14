@@ -2,7 +2,7 @@
 
 - This is made by Django, Python framework.
 
-
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 The flow of django Project
 
 1: Install Django by command 'python -m pip install Django'
